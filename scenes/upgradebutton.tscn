@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://447wsaul7svn"]
+
+[ext_resource type="Theme" uid="uid://c4xxwk53avyre" path="res://Assets/Themes/urchintheme.tres" id="1_a2l52"]
+[ext_resource type="Script" uid="uid://dgm4hew6tlniy" path="res://scripts/upgradebutton.gd" id="2_6nsok"]
+
+[node name="Button" type="Button"]
+texture_filter = 1
+theme = ExtResource("1_a2l52")
+text = "Upgrade 1 (10 shells): description..........sdfoahfosdaofhsdfhosajifojsaiojasdkjflkxocvjl,asmdfljawoejiojzvcxxzxcvzxcvzxcvzxcvzxcvzxcv"
+alignment = 0
+autowrap_mode = 3
+script = ExtResource("2_6nsok")

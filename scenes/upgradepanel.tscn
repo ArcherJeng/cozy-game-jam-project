@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://dasqo8868ilkq"]
+
+[ext_resource type="Theme" uid="uid://cyu422mg15vt5" path="res://Assets/Themes/maintheme.tres" id="1_4elry"]
+[ext_resource type="Script" uid="uid://bn344k78pnrom" path="res://scripts/upgrades.gd" id="1_qr0e8"]
+[ext_resource type="Theme" uid="uid://c4xxwk53avyre" path="res://Assets/Themes/urchintheme.tres" id="3_5ls4p"]
+[ext_resource type="Script" uid="uid://capcmjjrv0p0t" path="res://scripts/shopbutton.gd" id="5_nhbpd"]
+
+[node name="UpgradePanels" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShellUpgrades" type="VBoxContainer" parent="."]
+z_index = 2
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 728.0
+offset_bottom = 536.0
+theme = ExtResource("1_4elry")
+script = ExtResource("1_qr0e8")
+
+[node name="UrchinUpgrades" type="VBoxContainer" parent="."]
+z_index = 2
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -728.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 536.0
+grow_horizontal = 0
+theme = ExtResource("3_5ls4p")
+script = ExtResource("1_qr0e8")
+upgradeType = 1
+
+[node name="ShellShopButton" type="Button" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 160.0
+offset_bottom = 64.0
+theme = ExtResource("1_4elry")
+text = "Shell Shop"
+script = ExtResource("5_nhbpd")
+
+[node name="UrchinShopButton" type="Button" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 1432.0
+offset_top = 24.0
+offset_right = 1585.0
+offset_bottom = 64.0
+theme = ExtResource("3_5ls4p")
+text = "Urchin Shop
+"
+script = ExtResource("5_nhbpd")
+upgradeType = 1

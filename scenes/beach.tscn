@@ -1,0 +1,153 @@
+[gd_scene load_steps=12 format=3 uid="uid://dldn17oxn138l"]
+
+[ext_resource type="Texture2D" uid="uid://bx3akewovk7qi" path="res://Assets/Art/beachsand.png" id="1_vvyr7"]
+[ext_resource type="PackedScene" uid="uid://dasqo8868ilkq" path="res://scenes/upgradepanel.tscn" id="1_wmx66"]
+[ext_resource type="Texture2D" uid="uid://bfvj2s77wuk8c" path="res://Assets/Art/ocean.png" id="2_d38me"]
+[ext_resource type="Script" uid="uid://oasmpgtfmqlg" path="res://scripts/shellgenerator.gd" id="2_ftq8e"]
+[ext_resource type="Script" uid="uid://blhoqfslibh2" path="res://scripts/oceanwave.gd" id="3_ellki"]
+[ext_resource type="Theme" uid="uid://cyu422mg15vt5" path="res://Assets/Themes/maintheme.tres" id="6_ftq8e"]
+[ext_resource type="Script" uid="uid://bm7joobm4k6b" path="res://scripts/currencylabel.gd" id="6_psis8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43n2k"]
+atlas = ExtResource("2_d38me")
+region = Rect2(0, 0, 240, 135)
+
+[sub_resource type="Animation" id="Animation_qtu10"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 240, 135)]
+}
+
+[sub_resource type="Animation" id="Animation_62e2m"]
+resource_name = "ocean_anim"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 240, 135), Rect2(240, 0, 240, 135), Rect2(480, 0, 240, 135), Rect2(240, 0, 240, 135)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ee4bf"]
+_data = {
+&"RESET": SubResource("Animation_qtu10"),
+&"ocean_anim": SubResource("Animation_62e2m")
+}
+
+[node name="Beach" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="BeachSand" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -800.0
+offset_top = -446.0
+offset_right = 800.0
+offset_bottom = 450.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_vvyr7")
+expand_mode = 3
+
+[node name="shells" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -700.0
+offset_top = -328.0
+offset_right = 700.0
+offset_bottom = 248.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("2_ftq8e")
+
+[node name="ocean" type="Control" parent="."]
+anchors_preset = 0
+offset_top = -640.0
+offset_right = 1600.0
+offset_bottom = 2.0
+script = ExtResource("3_ellki")
+
+[node name="oceanTexture" type="TextureRect" parent="ocean"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -800.0
+offset_right = 800.0
+offset_bottom = 904.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_43n2k")
+stretch_mode = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ocean/oceanTexture"]
+libraries = {
+&"": SubResource("AnimationLibrary_ee4bf")
+}
+
+[node name="Timer" type="Timer" parent="ocean"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -800.0
+offset_top = -64.0
+offset_right = 800.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+theme = ExtResource("6_ftq8e")
+bbcode_enabled = true
+text = "Shells: 2034692341869082156908249056824
+[color=red]Urchins: 1390509130515"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 2
+script = ExtResource("6_psis8")
+
+[node name="UpgradePanels" parent="." instance=ExtResource("1_wmx66")]
+z_index = 3
+layout_mode = 1
+mouse_filter = 2
+
+[connection signal="timeout" from="ocean/Timer" to="ocean" method="_on_timer_timeout"]
