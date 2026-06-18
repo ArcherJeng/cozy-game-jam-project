@@ -100,5 +100,3 @@ script = ExtResource("4_1hf6u")
 libraries = {
 &"": SubResource("AnimationLibrary_qr86p")
 }
-
-[connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]

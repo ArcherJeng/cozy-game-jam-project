@@ -111,5 +111,3 @@ script = ExtResource("3_lqrkg")
 libraries = {
 &"": SubResource("AnimationLibrary_qr86p")
 }
-
-[connection signal="pressed" from="TextureButton" to="TextureButton" method="_on_pressed"]

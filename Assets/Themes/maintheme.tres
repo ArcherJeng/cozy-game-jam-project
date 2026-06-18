@@ -1,6 +1,8 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cyu422mg15vt5"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cyu422mg15vt5"]
 
 [ext_resource type="FontFile" uid="uid://ny858t3fhkj5" path="res://Assets/Themes/mainfont.ttf" id="1_yaygx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yaygx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bgkon"]
 bg_color = Color(0.0720475, 0.169558, 6.01634e-08, 1)
@@ -50,13 +52,31 @@ expand_margin_top = 10.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7thaj"]
+content_margin_left = 25.0
+bg_color = Color(0.123871, 0.218624, 0.242299, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1.29953e-06, 0.322543, 0.453544, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [resource]
 default_font = ExtResource("1_yaygx")
 default_font_size = 25
 Button/constants/line_spacing = 5
 Button/constants/outline_size = 5
+Button/styles/focus = SubResource("StyleBoxEmpty_yaygx")
 Button/styles/hover = SubResource("StyleBoxFlat_bgkon")
 Button/styles/normal = SubResource("StyleBoxFlat_h5v4t")
 Button/styles/pressed = SubResource("StyleBoxFlat_yaygx")
 RichTextLabel/font_sizes/normal_font_size = 32
+TextEdit/colors/font_readonly_color = Color(1, 1, 1, 0.796078)
+TextEdit/styles/focus = null
+TextEdit/styles/normal = SubResource("StyleBoxFlat_7thaj")
+TextEdit/styles/read_only = null
 VBoxContainer/constants/separation = 24

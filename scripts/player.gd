@@ -1,50 +1,53 @@
 extends Node
 
-var shellUpgrades := [
+# this singleton controls everything that needs to be globalized
+# ex: signal handling, saving/loading progress, upgrade progression, other global variables.
+
+var defaultShellUpgrades := [
 	{
 		"name": "More Shells",
-		"description": "Adds more shells that can be collected.",
+		"description": "Adds more shells that can be collected. Each upgrade increases the max amount of shells by 1.",
 		"baseCost": 2,
-		"costMultiplier": 2
+		"costMultiplier": 1.5
 	},
 	{
 		"name": "Faster Ocean Waves",
 		"description": "Makes the waves faster and more frequent.",
 		"baseCost": 10,
-		"costMultiplier": 2
+		"costMultiplier": 1.5
 	},
 	{
 		"name": "Shell Duplication",
 		"description": "Gives a chance for shells to duplicate when collected. Each upgrade increases the chance by 5%.",
 		"baseCost": 10,
-		"costMultiplier": 3
-	},
-	{
-		"name": "More Urchins?",
-		"description": "Adds more urchins that can be collected. Each upgrade increases the amount of urchins collected by 1. But why would you need this?",
-		"baseCost": 5,
 		"costMultiplier": 2
 	},
 	{
+		"name": "More Urchins?",
+		"description": "Adds more urchins that can be collected. Each upgrade increases the max amount of urchins spawned by 1. But why would you need this?",
+		"baseCost": 5,
+		"costMultiplier": 1.5
+	},
+	{
 		"name": "Win Condition?",
-		"description": "Beat the game..?",
+		"description": "Help Sally out with this kickstarter fund!",
 		"baseCost": 300,
 		"costMultiplier": 1000000000
 	}
 ]
 
-var urchinUpgrades := [
+var defaultUrchinUpgrades := [
 	{
 		"name": "More Urchins",
-		"description": "Adds more urchins that can be collected. Each upgrade increases the amount of urchins collected by 1.",
+		"description": "Adds more urchins that can be collected. Each upgrade increases the max amount of urchins spawned by 1.",
 		"baseCost": 5,
-		"costMultiplier": 2
+		"costMultiplier": 1.5
 	},
 	{
 		"name": "Faster Ocean Waves",
 		"description": "Makes the waves faster and more frequent.",
 		"baseCost": 10,
-		"costMultiplier": 2
+		"costMultiplier": 1.5
 	},
 	{
 		"name": "Urchin Duplication",
@@ -54,23 +57,26 @@ var urchinUpgrades := [
 	},
 	{
 		"name": "More Shells",
-		"description": "Adds more shells that can be collected.",
-		"baseCost": 2,
-		"costMultiplier": 2
+		"description": "Adds more shells that can be collected. Each upgrade increases the max amount of shells by 1.",
+		"baseCost": 5,
+		"costMultiplier": 1.5
 	},
 	{
 		"name": "Win Condition.",
-		"description": "Beat the game.",
+		"description": "Start your own sea urchin empire.",
 		"baseCost": 300,
 		"costMultiplier": 10000000
 	}
 ]
 
-var defaultShellUpgrades := [0,0,0,0,0]
-var defaultUrchinUpgrades := [0,0,0,0,0]
+var shellUpgrades := defaultShellUpgrades.duplicate(true)
+var urchinUpgrades := defaultUrchinUpgrades.duplicate(true)
 
-var currentShellUpgrades := defaultShellUpgrades.duplicate() #tracks how many times each shell upgrade has been bought
-var currentUrchinUpgrades := defaultUrchinUpgrades.duplicate() #tracks how many times each urchin upgrade has been bought
+var defaultShellUpgradeCount := [0,0,0,0,0]
+var defaultUrchinUpgradeCount := [0,0,0,0,0]
+
+var currentShellUpgrades := defaultShellUpgradeCount.duplicate() #tracks how many times each shell upgrade has been bought
+var currentUrchinUpgrades := defaultUrchinUpgradeCount.duplicate() #tracks how many times each urchin upgrade has been bought
 
 var shells := 0
 var urchins := 0
@@ -85,6 +91,7 @@ signal urchins_unlocked #sent when player has 10 urchins and negative shells, us
 signal generate_shells #sent when ocean wave reaches the top, used to generate shells in shell generator
 signal generate_urchins #sent when ocean wave reaches the top, used to generate urchins in urchin generator
 signal resetsave
+signal start #signal to initiate starting text
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -109,7 +116,8 @@ func _ready() -> void:
 
 	if urchins_unlocked_bool:
 		emit_signal("urchins_unlocked")
-	pass # Replace with function body.
+	
+	emit_signal("start")
 
 func _on_timer_timeout():
 	save_game()
@@ -213,8 +221,8 @@ func load_game():
 				var data = json.data
 				shells = data.get("shells", 0)
 				urchins = data.get("urchins", 0)
-				currentShellUpgrades = data.get("currentShellUpgrades", defaultShellUpgrades.duplicate())
-				currentUrchinUpgrades = data.get("currentUrchinUpgrades", defaultUrchinUpgrades.duplicate())
+				currentShellUpgrades = data.get("currentShellUpgrades", defaultShellUpgradeCount.duplicate())
+				currentUrchinUpgrades = data.get("currentUrchinUpgrades", defaultUrchinUpgradeCount.duplicate())
 				urchins_unlocked_bool = data.get("urchins_unlocked",false)
 				currentShellUpgrades[3] = 0
 				currentUrchinUpgrades[3] = 0
@@ -234,11 +242,15 @@ func load_game():
 func reset_game():
 	shells = 0
 	urchins = 0
-	currentShellUpgrades = defaultShellUpgrades.duplicate()
-	currentUrchinUpgrades = defaultUrchinUpgrades.duplicate()
+	currentShellUpgrades = defaultShellUpgradeCount.duplicate()
+	currentUrchinUpgrades = defaultUrchinUpgradeCount.duplicate()
 	urchins_unlocked_bool = false
+
+	shellUpgrades = defaultShellUpgrades.duplicate(true)
+	urchinUpgrades = defaultUrchinUpgrades.duplicate(true)
 	save_game()
 	emit_signal("on_upg_bought")
+	emit_signal("start")
 
 func check_urchin_shop_unlock():
 	if urchins >= 15 and shells < 0 and !urchins_unlocked_bool:

@@ -1,0 +1,129 @@
+[gd_scene load_steps=11 format=3 uid="uid://c3q11nvxmlccu"]
+
+[ext_resource type="Script" uid="uid://dduapnvv37xrj" path="res://scripts/story_text.gd" id="1_e3ajr"]
+[ext_resource type="Theme" uid="uid://cyu422mg15vt5" path="res://Assets/Themes/maintheme.tres" id="2_rfvxs"]
+[ext_resource type="FontFile" uid="uid://ny858t3fhkj5" path="res://Assets/Themes/mainfont.ttf" id="3_ir1j4"]
+[ext_resource type="Theme" uid="uid://c4xxwk53avyre" path="res://Assets/Themes/urchintheme.tres" id="4_ir1j4"]
+[ext_resource type="Script" uid="uid://co6osrvvfrrct" path="res://scripts/resetbutton.gd" id="4_rfvxs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ir1j4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33vqd"]
+bg_color = Color(0.835625, 0.000173295, 0.00434082, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.488703, 0.0237259, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7rmv"]
+bg_color = Color(0.638828, 1.75677e-06, 0.00233246, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.488703, 0.0237259, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m23cu"]
+bg_color = Color(0.255495, 2.41105e-06, 0.000339863, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.488703, 0.0237259, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="Theme" id="Theme_v12af"]
+default_font = ExtResource("3_ir1j4")
+Button/styles/focus = SubResource("StyleBoxEmpty_ir1j4")
+Button/styles/hover = SubResource("StyleBoxFlat_33vqd")
+Button/styles/normal = SubResource("StyleBoxFlat_b7rmv")
+Button/styles/pressed = SubResource("StyleBoxFlat_m23cu")
+
+[node name="StoryText" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e3ajr")
+
+[node name="Textbox" type="TextEdit" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -497.0
+offset_top = -248.5
+offset_right = 497.0
+offset_bottom = 248.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_rfvxs")
+text = "
+lorem ipsum something something something soemthing soethignoand iosak la ojsdij jfkxl zjoijs fkd x"
+editable = false
+wrap_mode = 1
+
+[node name="ExitButton" type="Button" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 454.0
+offset_top = -244.0
+offset_right = 495.0
+offset_bottom = -204.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_v12af")
+text = "X"
+
+[node name="ResetButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -224.0
+offset_top = 270.0
+offset_right = 232.0
+offset_bottom = 310.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_ir1j4")
+text = "Play Again? (RESETS EVERYTHING)"
+script = ExtResource("4_rfvxs")

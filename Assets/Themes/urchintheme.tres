@@ -1,6 +1,8 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://c4xxwk53avyre"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://c4xxwk53avyre"]
 
 [ext_resource type="FontFile" uid="uid://ny858t3fhkj5" path="res://Assets/Themes/mainfont.ttf" id="1_2ku61"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mmwd2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bgkon"]
 bg_color = Color(0.254299, 0.0755128, 0, 1)
@@ -55,6 +57,7 @@ default_font = ExtResource("1_2ku61")
 default_font_size = 25
 Button/constants/line_spacing = 5
 Button/constants/outline_size = 5
+Button/styles/focus = SubResource("StyleBoxEmpty_mmwd2")
 Button/styles/hover = SubResource("StyleBoxFlat_bgkon")
 Button/styles/normal = SubResource("StyleBoxFlat_h5v4t")
 Button/styles/pressed = SubResource("StyleBoxFlat_mmwd2")
