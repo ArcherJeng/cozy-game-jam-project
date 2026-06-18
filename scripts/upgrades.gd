@@ -3,11 +3,12 @@ extends VBoxContainer
 @export var upgradeType := 0 #0 for shell, 1 for urchin
 var upgrades := [] #array of upgrades to display, set in main scene when opening upgrade menu
 var buttonScene := preload("res://scenes/upgradebutton.tscn")
-var currency := "shells" if upgradeType == 0 else "urchins"
+
 
 @onready var shellShopButton := self.get_parent().get_node("ShellShopButton")
 @onready var urchinShopButton := self.get_parent().get_node("UrchinShopButton")
 
+@onready var currency := "shells" if upgradeType == 0 else "urchins"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.hide() #hide upgrade menu on start, show when shop button is pressed
@@ -32,7 +33,7 @@ func _ready() -> void:
 	
 	var exitButton := Button.new()
 	exitButton.text = "Exit"
-	exitButton.connect("pressed", Callable(self, "_on_exit_button_pressed"))
+	exitButton.pressed.connect(_on_exit_button_pressed)
 	add_child(exitButton)
 
 func _on_exit_button_pressed():
@@ -46,3 +47,6 @@ func _on_exit_button_pressed():
 
 	
 		
+func _process(_delta: float) -> void:
+	if !Player.urchins_unlocked_bool && upgradeType == 1:
+		self.hide()

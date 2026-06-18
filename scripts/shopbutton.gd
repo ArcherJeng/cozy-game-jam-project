@@ -4,7 +4,8 @@ extends Button
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	self.connect("pressed", Callable(self, "_on_pressed"))
+	self.pressed.connect(_on_pressed)
+	Player.urchins_unlocked.connect(_on_urchin_unlocked)
 
 	if upgradeType == 0:
 		self.text = "Shell Upgrades"
@@ -27,3 +28,7 @@ func _on_pressed():
 func _on_urchin_unlocked():
 	if upgradeType == 1:
 		self.show()
+
+func _process(_delta: float) -> void:
+	if !Player.urchins_unlocked_bool && upgradeType == 1:
+		self.hide()

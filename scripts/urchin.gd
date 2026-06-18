@@ -11,8 +11,8 @@ func _ready() -> void:
 
 func _on_pressed():
 	#send event, confirm event is received in main scene, then play sound and delete self
-	Player.emit_signal("shell_pressed") #send pos to do a +shellamt animation in main scene
-	print("shell pressed at: ", self.position.x, self.position.y)
+	Player.emit_signal("urchin_pressed") #send pos to do a +shellamt animation in main scene
+	print("urchin pressed at: ", self.position.x, self.position.y)
 
 	#sound effect for shell press and popup text here
 

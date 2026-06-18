@@ -1,12 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://dldn17oxn138l"]
+[gd_scene load_steps=14 format=3 uid="uid://dldn17oxn138l"]
 
 [ext_resource type="Texture2D" uid="uid://bx3akewovk7qi" path="res://Assets/Art/beachsand.png" id="1_vvyr7"]
 [ext_resource type="PackedScene" uid="uid://dasqo8868ilkq" path="res://scenes/upgradepanel.tscn" id="1_wmx66"]
 [ext_resource type="Texture2D" uid="uid://bfvj2s77wuk8c" path="res://Assets/Art/ocean.png" id="2_d38me"]
 [ext_resource type="Script" uid="uid://oasmpgtfmqlg" path="res://scripts/shellgenerator.gd" id="2_ftq8e"]
 [ext_resource type="Script" uid="uid://blhoqfslibh2" path="res://scripts/oceanwave.gd" id="3_ellki"]
+[ext_resource type="Script" uid="uid://14pabbpkwpak" path="res://scripts/urchingenerator.gd" id="3_ryqoc"]
 [ext_resource type="Theme" uid="uid://cyu422mg15vt5" path="res://Assets/Themes/maintheme.tres" id="6_ftq8e"]
 [ext_resource type="Script" uid="uid://bm7joobm4k6b" path="res://scripts/currencylabel.gd" id="6_psis8"]
+[ext_resource type="Script" uid="uid://co6osrvvfrrct" path="res://scripts/resetbutton.gd" id="9_e40yw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_43n2k"]
 atlas = ExtResource("2_d38me")
@@ -80,6 +82,7 @@ texture = ExtResource("1_vvyr7")
 expand_mode = 3
 
 [node name="shells" type="Control" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -89,11 +92,28 @@ anchor_bottom = 0.5
 offset_left = -700.0
 offset_top = -328.0
 offset_right = 700.0
-offset_bottom = 248.0
+offset_bottom = 112.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("2_ftq8e")
+
+[node name="urchins" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -700.0
+offset_top = -328.0
+offset_right = 700.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_ryqoc")
 
 [node name="ocean" type="Control" parent="."]
 anchors_preset = 0
@@ -149,5 +169,14 @@ script = ExtResource("6_psis8")
 z_index = 3
 layout_mode = 1
 mouse_filter = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 696.0
+offset_right = 96.0
+offset_bottom = 752.0
+text = "RESET"
+script = ExtResource("9_e40yw")
 
 [connection signal="timeout" from="ocean/Timer" to="ocean" method="_on_timer_timeout"]
