@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://bs0hdauab6r67"]
+
+[ext_resource type="FontFile" uid="uid://ny858t3fhkj5" path="res://Assets/Themes/mainfont.ttf" id="1_ytnxw"]
+[ext_resource type="Script" uid="uid://d2cwrnxnd2lbv" path="res://scripts/volumemenu.gd" id="2_udgap"]
+
+[sub_resource type="Theme" id="Theme_nbkon"]
+default_font = ExtResource("1_ytnxw")
+
+[node name="VolumeMenu" type="Control" unique_id=82544524]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = SubResource("Theme_nbkon")
+script = ExtResource("2_udgap")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=568735222]
+layout_mode = 0
+offset_left = -184.0
+offset_top = -100.0
+offset_right = -11.0
+offset_bottom = -12.0
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1549075756]
+layout_mode = 2
+text = "Music Volume"
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="VBoxContainer" unique_id=685887471]
+layout_mode = 2
+min_value = 0.001
+max_value = 1.0
+step = 0.05
+value = 0.501
+
+[node name="Label2" type="Label" parent="VBoxContainer" unique_id=597498530]
+layout_mode = 2
+text = "SFX Volume"
+horizontal_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="VBoxContainer" unique_id=976753573]
+layout_mode = 2
+min_value = 0.001
+max_value = 1.0
+step = 0.05
+value = 0.501

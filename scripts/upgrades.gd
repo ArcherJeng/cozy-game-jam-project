@@ -11,11 +11,12 @@ var buttonScene := preload("res://scenes/upgradebutton.tscn")
 @onready var currency := "shells" if upgradeType == 0 else "urchins"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	self.hide() #hide upgrade menu on start, show when shop button is pressed
+	self.hide()
 	if upgradeType == 0:
 		upgrades = Player.shellUpgrades
 	else:
 		upgrades = Player.urchinUpgrades
+	
 	#create buttons for each upgrade
 	for upgrade in upgrades:
 		var button := buttonScene.instantiate()
@@ -36,6 +37,8 @@ func _ready() -> void:
 	exitButton.pressed.connect(_on_exit_button_pressed)
 	add_child(exitButton)
 
+	Player.start.connect(_on_start)
+
 func _on_exit_button_pressed():
 	#close the upgrade menu, return to main scene
 	self.hide()
@@ -50,3 +53,6 @@ func _on_exit_button_pressed():
 func _process(_delta: float) -> void:
 	if !Player.urchins_unlocked_bool && upgradeType == 1:
 		self.hide()
+
+func _on_start():
+	_on_exit_button_pressed()

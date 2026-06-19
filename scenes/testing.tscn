@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://hnt4us6bf4ck"]
+
+[ext_resource type="Script" uid="uid://b0v55m2y8oqmu" path="res://scripts/testbuttons.gd" id="1_ryjsw"]
+
+[node name="testing" type="Control" unique_id=1340827852]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AddShells" type="Button" parent="." unique_id=600402582]
+layout_mode = 0
+offset_left = 1400.0
+offset_top = 616.0
+offset_right = 1502.0
+offset_bottom = 648.0
+text = "+1000 shells"
+script = ExtResource("1_ryjsw")
+
+[node name="SubtractShells" type="Button" parent="." unique_id=181321213]
+layout_mode = 0
+offset_left = 1400.0
+offset_top = 664.0
+offset_right = 1502.0
+offset_bottom = 696.0
+text = "-1000 shells"
+script = ExtResource("1_ryjsw")
+
+[node name="AddUrchins" type="Button" parent="." unique_id=1868499401]
+layout_mode = 0
+offset_left = 1448.0
+offset_top = 560.0
+offset_right = 1564.0
+offset_bottom = 592.0
+text = "+1000 urchins"
+script = ExtResource("1_ryjsw")

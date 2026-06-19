@@ -8,16 +8,25 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Cozy game jam project"
 run/main_scene="uid://dldn17oxn138l"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://er24wxvd82hs"
 
 [autoload]
 
 Player="*res://scripts/player.gd"
+AudioManager="*uid://pike2f5q27ba"
 
 [display]
 

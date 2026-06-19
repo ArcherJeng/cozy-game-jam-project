@@ -36,3 +36,4 @@ func _on_update_cost():
 		upgrade = Player.urchinUpgrades[upgradeIndex]
 		currency = "Urchins"
 	text = str(upgrade.name,' (', Player.getUpgradeCost(upgradeType, upgradeIndex),  ' ', currency, '): \n', upgrade.description)
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ddcsjblvkks07"]
+[gd_scene format=3 uid="uid://ddcsjblvkks07"]
 
 [ext_resource type="Script" uid="uid://d0pcqg35yj0ta" path="res://scripts/urchin.gd" id="1_lqrkg"]
 [ext_resource type="Texture2D" uid="uid://c10o15l87ddq" path="res://Assets/Art/urchin.png" id="2_lqrkg"]
@@ -65,7 +65,7 @@ _data = {
 &"urchin_anim": SubResource("Animation_uvbm3")
 }
 
-[node name="urchin" type="Control"]
+[node name="urchin" type="Control" unique_id=435429512]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -78,7 +78,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="TextureButton" type="TextureButton" parent="." unique_id=1598490245]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -95,7 +95,7 @@ grow_vertical = 2
 stretch_mode = 0
 script = ExtResource("1_lqrkg")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1456338892]
 texture_filter = 1
 material = SubResource("ShaderMaterial_fnrww")
 layout_mode = 0
@@ -107,7 +107,5 @@ mouse_filter = 2
 texture = SubResource("AtlasTexture_w5dfl")
 script = ExtResource("3_lqrkg")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect"]
-libraries = {
-&"": SubResource("AnimationLibrary_qr86p")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect" unique_id=1719005884]
+libraries/ = SubResource("AnimationLibrary_qr86p")

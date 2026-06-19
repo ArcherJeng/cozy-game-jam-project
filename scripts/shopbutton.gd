@@ -12,7 +12,7 @@ func _ready() -> void:
 		self.show()
 	else:
 		self.text = "Urchin Upgrades"
-		self.hide() #urchin shop button starts hidden, only shows after player has 10 urchins AND has negative shells
+		self.hide() #urchin shop button starts hidden
 	
 	pass # Replace with function body.
 

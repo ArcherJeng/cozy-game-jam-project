@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c3q11nvxmlccu"]
+[gd_scene format=3 uid="uid://c3q11nvxmlccu"]
 
 [ext_resource type="Script" uid="uid://dduapnvv37xrj" path="res://scripts/story_text.gd" id="1_e3ajr"]
 [ext_resource type="Theme" uid="uid://cyu422mg15vt5" path="res://Assets/Themes/maintheme.tres" id="2_rfvxs"]
@@ -9,7 +9,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ir1j4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_33vqd"]
-bg_color = Color(0.835625, 0.000173295, 0.00434082, 1)
+bg_color = Color(0.639216, 0, 0.00392157, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -25,7 +25,7 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7rmv"]
-bg_color = Color(0.638828, 1.75677e-06, 0.00233246, 1)
+bg_color = Color(0.835294, 0, 0.00392157, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -63,7 +63,8 @@ Button/styles/hover = SubResource("StyleBoxFlat_33vqd")
 Button/styles/normal = SubResource("StyleBoxFlat_b7rmv")
 Button/styles/pressed = SubResource("StyleBoxFlat_m23cu")
 
-[node name="StoryText" type="Control"]
+[node name="StoryText" type="Control" unique_id=609675319]
+z_index = 10
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -74,7 +75,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_e3ajr")
 
-[node name="Textbox" type="TextEdit" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=2016872289]
+layout_mode = 0
+offset_left = -800.0
+offset_top = -450.0
+offset_right = 800.0
+offset_bottom = 454.0
+
+[node name="Textbox" type="TextEdit" parent="." unique_id=1410807805]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -92,9 +100,18 @@ theme = ExtResource("2_rfvxs")
 text = "
 lorem ipsum something something something soemthing soethignoand iosak la ojsdij jfkxl zjoijs fkd x"
 editable = false
+context_menu_enabled = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+middle_mouse_paste_enabled = false
+empty_selection_clipboard_enabled = false
 wrap_mode = 1
+virtual_keyboard_enabled = false
 
-[node name="ExitButton" type="Button" parent="."]
+[node name="ExitButton" type="Button" parent="." unique_id=725922512]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -111,7 +128,7 @@ grow_vertical = 2
 theme = SubResource("Theme_v12af")
 text = "X"
 
-[node name="ResetButton" type="Button" parent="."]
+[node name="ResetButton" type="Button" parent="." unique_id=427233432]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -125,5 +142,5 @@ offset_bottom = 310.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("4_ir1j4")
-text = "Play Again? (RESETS EVERYTHING)"
+text = "RESET PROGRESS?"
 script = ExtResource("4_rfvxs")

@@ -8,19 +8,19 @@ var defaultShellUpgrades := [
 		"name": "More Shells",
 		"description": "Adds more shells that can be collected. Each upgrade increases the max amount of shells by 1.",
 		"baseCost": 2,
-		"costMultiplier": 1.5
+		"costMultiplier": 1.4
 	},
 	{
 		"name": "Faster Ocean Waves",
 		"description": "Makes the waves faster and more frequent.",
-		"baseCost": 10,
-		"costMultiplier": 1.5
+		"baseCost": 5,
+		"costMultiplier": 1.6
 	},
 	{
 		"name": "Shell Duplication",
-		"description": "Gives a chance for shells to duplicate when collected. Each upgrade increases the chance by 5%.",
+		"description": "Gives a chance for shells to duplicate when collected. Each upgrade increases the chance by 10%.",
 		"baseCost": 10,
-		"costMultiplier": 2
+		"costMultiplier": 1.3
 	},
 	{
 		"name": "More Urchins?",
@@ -32,7 +32,7 @@ var defaultShellUpgrades := [
 		"name": "Win Condition?",
 		"description": "Help Sally out with this kickstarter fund!",
 		"baseCost": 300,
-		"costMultiplier": 1000000000
+		"costMultiplier": 99999999999
 	}
 ]
 
@@ -51,9 +51,9 @@ var defaultUrchinUpgrades := [
 	},
 	{
 		"name": "Urchin Duplication",
-		"description": "Gives a chance for urchins to duplicate when collected. Each upgrade increases the chance by 5%.",
+		"description": "Gives a chance for urchins to duplicate when collected. Each upgrade increases the chance by 10%.",
 		"baseCost": 10,
-		"costMultiplier": 3
+		"costMultiplier": 1.5
 	},
 	{
 		"name": "More Shells",
@@ -65,7 +65,7 @@ var defaultUrchinUpgrades := [
 		"name": "Win Condition.",
 		"description": "Start your own sea urchin empire.",
 		"baseCost": 300,
-		"costMultiplier": 10000000
+		"costMultiplier": 99999999999
 	}
 ]
 
@@ -92,6 +92,7 @@ signal generate_shells #sent when ocean wave reaches the top, used to generate s
 signal generate_urchins #sent when ocean wave reaches the top, used to generate urchins in urchin generator
 signal resetsave
 signal start #signal to initiate starting text
+signal reset_attempt
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -131,18 +132,24 @@ func _on_shell_pressed():
 	if urchins < 0:
 		urchins = 0
 	#check for duplication upgrade
-	var dupChance = currentShellUpgrades[2] * 5 #5% chance per level of the third shell upgrade
+	var dupChance = currentShellUpgrades[2] * 10 #5% chance per level of the third shell upgrade
 	if randi() % 100 < dupChance:
 		shells += 1 #duplicate the shell
+		AudioManager.play_sfx("duplicated")
+	else:
+		AudioManager.play_sfx("collectShell")
 
 
 func _on_urchin_pressed():
 	urchins += 1
 	shells -= 1
 	#check for duplication upgrade
-	var dupChance = currentUrchinUpgrades[2] * 5 #5% chance per level of the third urchin upgrade
+	var dupChance = currentUrchinUpgrades[2] * 10 #5% chance per level of the third urchin upgrade
 	if randi() % 100 < dupChance:
 		urchins += 1 #duplicate the urchin
+		AudioManager.play_sfx("duplicated")
+	else:
+		AudioManager.play_sfx("collectUrchin")
 
 
 func _on_buy_upgrade(upgradeType, upgradeIndex):
@@ -152,27 +159,29 @@ func _on_buy_upgrade(upgradeType, upgradeIndex):
 func buyUpgrade(upgradeType: int, upgradeIndex: int):
 	if upgradeType == 0:
 		var upgrade = shellUpgrades[upgradeIndex]
-		var cost = upgrade["baseCost"] * pow(upgrade["costMultiplier"], currentShellUpgrades[upgradeIndex])
+		var cost = floor(upgrade["baseCost"] * pow(upgrade["costMultiplier"], currentShellUpgrades[upgradeIndex]))
 		if shells >= cost:
 			shells -= cost
 			currentShellUpgrades[upgradeIndex] += 1
 			emit_signal("on_upg_bought") #send event to main scene to update UI and apply effects
+			AudioManager.play_sfx("upgradeBought")
 	elif upgradeType == 1:
 		var upgrade = urchinUpgrades[upgradeIndex]
-		var cost = upgrade["baseCost"] * pow(upgrade["costMultiplier"], currentUrchinUpgrades[upgradeIndex])
+		var cost = floor(upgrade["baseCost"] * pow(upgrade["costMultiplier"], currentUrchinUpgrades[upgradeIndex]))
 		if urchins >= cost:
 			urchins -= cost
 			currentUrchinUpgrades[upgradeIndex] += 1
 			emit_signal("on_upg_bought") #send event to main scene to update UI and apply effects
+			AudioManager.play_sfx("upgradeBought")
 
 #get upgrade cost based on type and index, used to check if player can afford upgrade and to display cost in UI
 func getUpgradeCost(upgradeType: int, upgradeIndex: int) -> int:
 	if upgradeType == 0:
 		var upgrade = shellUpgrades[upgradeIndex]
-		return upgrade["baseCost"] * pow(upgrade["costMultiplier"], currentShellUpgrades[upgradeIndex])
+		return floor(upgrade["baseCost"] * pow(upgrade["costMultiplier"], currentShellUpgrades[upgradeIndex]))
 	elif upgradeType == 1:
 		var upgrade = urchinUpgrades[upgradeIndex]
-		return upgrade["baseCost"] * pow(upgrade["costMultiplier"], currentUrchinUpgrades[upgradeIndex])
+		return floor(upgrade["baseCost"] * pow(upgrade["costMultiplier"], currentUrchinUpgrades[upgradeIndex]))
 	else :
 		push_warning("Invalid upgrade type or index: " + str(upgradeType) + ", " + str(upgradeIndex))
 		return -1 #invalid upgrade type

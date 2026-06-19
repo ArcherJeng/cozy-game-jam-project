@@ -1,10 +1,10 @@
 extends Control
 
-var defaultTime := 3
+var defaultTime := 3.0
 var time := defaultTime #time it takes for wave to go up and down, reduced by upgrades
 var initPos := Vector2(0, -632)
 var finalPos := Vector2(0, 0)
-var defaultDelayTime := 17
+var defaultDelayTime := 15
 var delayTime := defaultDelayTime #in seconds, time between waves, reduced by upgrades
 
 @onready var timer := self.get_node("Timer")
@@ -19,6 +19,7 @@ func _ready() -> void:
 	$oceanTexture/AnimationPlayer.play("ocean_anim")
 
 	Player.on_upg_bought.connect(_on_upg_bought)
+	Player.start.connect(_on_start)
 	timer.wait_time = delayTime
 	timer.start()
 	print(timer)
@@ -33,6 +34,7 @@ func execute_wave():
 	var tween := get_tree().create_tween()
 	tween.tween_property(self, "position:y", finalPos.y, time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
+	AudioManager.play_sfx("oceanWave")
 	await tween.finished
 
 	_regen_items()
@@ -45,14 +47,16 @@ func execute_wave():
 	waveOngoing = false
 
 func _regen_items():
-	for child in shellsNode.get_children():
-		child.queue_free()
-	for child in urchinsNode.get_children():
-		child.queue_free()
+	_delete_items_in_beach()
 	
 	Player.emit_signal("generate_shells") #tell shells scene to generate shells at the start of the wave
 	Player.emit_signal("generate_urchins") #tell urchin scene to generate urchins at the start of the wave
 	
+func _delete_items_in_beach():
+	for child in shellsNode.get_children():
+		child.queue_free()
+	for child in urchinsNode.get_children():
+		child.queue_free()
 
 func _on_timer_timeout():
 	print("timer timeout for ocean wave")
@@ -64,3 +68,6 @@ func _on_upg_bought():
 	time = max(0.5, defaultTime - ((Player.currentShellUpgrades[1] + Player.currentUrchinUpgrades[1]) * 0.2)) #reduce time by 0.25 seconds for each level of the second shell upgrade, with a minimum of 0.5 seconds
 	timer.wait_time = delayTime
 	timer.start() #restart the timer with the new delay time
+
+func _on_start():
+	_delete_items_in_beach()
