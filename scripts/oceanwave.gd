@@ -1,10 +1,10 @@
 extends Control
 
-var defaultTime := 3.0
+var defaultTime := 2.7
 var time := defaultTime #time it takes for wave to go up and down, reduced by upgrades
 var initPos := Vector2(0, -632)
 var finalPos := Vector2(0, 0)
-var defaultDelayTime := 15
+var defaultDelayTime := 13
 var delayTime := defaultDelayTime #in seconds, time between waves, reduced by upgrades
 
 @onready var timer := self.get_node("Timer")
@@ -64,8 +64,8 @@ func _on_timer_timeout():
 
 func _on_upg_bought():
 	timer.stop() #stop the timer to reset it with the new delay time
-	delayTime = max(1, defaultDelayTime - ((Player.currentShellUpgrades[1] + Player.currentUrchinUpgrades[1]) * 1)) #reduce time by 1 seconds for each level of the first shell upgrade, with a minimum of 1 seconds
-	time = max(0.5, defaultTime - ((Player.currentShellUpgrades[1] + Player.currentUrchinUpgrades[1]) * 0.2)) #reduce time by 0.25 seconds for each level of the second shell upgrade, with a minimum of 0.5 seconds
+	delayTime = max(1, defaultDelayTime - ((Player.currentShellUpgrades[1] + Player.currentUrchinUpgrades[1]) * .9)) #reduce time by .9 seconds for each level of the first shell upgrade, with a minimum of 1 seconds
+	time = max(0.5, defaultTime - ((Player.currentShellUpgrades[1] + Player.currentUrchinUpgrades[1]) * 0.2)) #reduce time by 0.2 seconds for each level of the second shell upgrade, with a minimum of 0.5 seconds
 	timer.wait_time = delayTime
 	timer.start() #restart the timer with the new delay time
 

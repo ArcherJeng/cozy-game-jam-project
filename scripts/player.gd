@@ -8,18 +8,18 @@ var defaultShellUpgrades := [
 		"name": "More Shells",
 		"description": "Adds more shells that can be collected. Each upgrade increases the max amount of shells by 1.",
 		"baseCost": 2,
-		"costMultiplier": 1.4
+		"costMultiplier": 1.3
 	},
 	{
 		"name": "Faster Ocean Waves",
 		"description": "Makes the waves faster and more frequent.",
-		"baseCost": 5,
-		"costMultiplier": 1.6
+		"baseCost": 4,
+		"costMultiplier": 1.5
 	},
 	{
 		"name": "Shell Duplication",
 		"description": "Gives a chance for shells to duplicate when collected. Each upgrade increases the chance by 10%.",
-		"baseCost": 10,
+		"baseCost": 7,
 		"costMultiplier": 1.3
 	},
 	{
@@ -41,7 +41,7 @@ var defaultUrchinUpgrades := [
 		"name": "More Urchins",
 		"description": "Adds more urchins that can be collected. Each upgrade increases the max amount of urchins spawned by 1.",
 		"baseCost": 5,
-		"costMultiplier": 1.5
+		"costMultiplier": 1.4
 	},
 	{
 		"name": "Faster Ocean Waves",
@@ -59,7 +59,7 @@ var defaultUrchinUpgrades := [
 		"name": "More Shells",
 		"description": "Adds more shells that can be collected. Each upgrade increases the max amount of shells by 1.",
 		"baseCost": 5,
-		"costMultiplier": 1.5
+		"costMultiplier": 1.4
 	},
 	{
 		"name": "Win Condition.",
