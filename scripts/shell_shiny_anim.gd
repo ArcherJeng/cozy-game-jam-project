@@ -1,10 +1,6 @@
 extends TextureRect
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
 
 # 2. every once in a while, do a shiny animation, then wait a random amount of time before doing it again
 func _process(_delta: float) -> void:

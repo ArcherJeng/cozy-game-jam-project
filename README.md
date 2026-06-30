@@ -1,4 +1,4 @@
-Collect Seashells!
+# Collect Seashells!
 
 Expect gameplay to be around 20-30 minutes long (per ending, 2 endings total).
 
@@ -6,7 +6,7 @@ Submission for Cozy Jam: Summer 2026
 
 This is my first game jam, so it'd be great to give me some critiques or criticisms to work on for the future!
 
-There may be updates in the future, depending on how much time I have on my hands.
+There may be updates in the future, depending on how much time I have on my hands. For now, there's nothing new planned other than minor balancing changes.
 
 <in-game intro>
 
@@ -41,7 +41,6 @@ https://pixabay.com/sound-effects/film-special-effects-8-bit-powerup-6768/
 
 
 Everything else was made by me :)
-
 
 
 Made with Godot 4

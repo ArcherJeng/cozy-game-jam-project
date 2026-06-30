@@ -10,7 +10,6 @@ func _ready() -> void:
 		self.show()
 	else:
 		self.queue_free()
-	pass # Replace with function body.
 
 
 

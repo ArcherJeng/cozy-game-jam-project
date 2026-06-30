@@ -2,6 +2,7 @@ extends Node
 
 # this singleton controls everything that needs to be globalized
 # ex: signal handling, saving/loading progress, upgrade progression, other global variables.
+# (easier to put everything in one place since this is a small game anyway)
 
 var defaultShellUpgrades := [
 	{
@@ -32,7 +33,7 @@ var defaultShellUpgrades := [
 		"name": "Win Condition?",
 		"description": "Help Sally out with this kickstarter fund!",
 		"baseCost": 300,
-		"costMultiplier": 99999999999
+		"costMultiplier": 99999999999 #to prevent someone buying it after buying it once (if they somehow are able to click the button)
 	}
 ]
 
@@ -126,6 +127,7 @@ func _on_timer_timeout():
 func _process(_delta: float) -> void:
 	check_urchin_shop_unlock()
 
+#when shell on beach is pressed, update shell and urchin counts
 func _on_shell_pressed():
 	shells += 1
 	urchins -= 1
@@ -139,7 +141,7 @@ func _on_shell_pressed():
 	else:
 		AudioManager.play_sfx("collectShell")
 
-
+#when urchin on beach is pressed, update urchin and shell counts
 func _on_urchin_pressed():
 	urchins += 1
 	shells -= 1
@@ -186,6 +188,7 @@ func getUpgradeCost(upgradeType: int, upgradeIndex: int) -> int:
 		push_warning("Invalid upgrade type or index: " + str(upgradeType) + ", " + str(upgradeIndex))
 		return -1 #invalid upgrade type
 
+#global func to check if specific upgrade is affordable to allow checking from the upgrade buttons
 func checkIfUpgradeAffordable(upgradeType: int, upgradeIndex: int) -> bool:
 	var cost := getUpgradeCost(upgradeType, upgradeIndex)
 	if cost == -1:

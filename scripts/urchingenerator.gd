@@ -1,10 +1,10 @@
 extends Control
 
 var urchinScene := preload("res://scenes/urchin.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Player.generate_urchins.connect(_on_generate_urchins)
-	pass # Replace with function body.
 
 func _on_generate_urchins():
 	#generate urchins at random positions within the generator area, with a random amount of urchins between 1 and 5, then emit an event to main scene to update player stats and UI
